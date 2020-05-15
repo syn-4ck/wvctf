@@ -4,10 +4,4 @@
 
 ## Build and deploy
 
-To build:
-
-mvn clean install
-
-To deploy:
-
-mvn spring-boot:run
+The script run_script.bat (only for CMD of Windows).
