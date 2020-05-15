@@ -1,3 +1,127 @@
-.App {
+.main {
+  width:100%;
+  min-width: 100vh;
+  height:100%;
+  min-height: 100vh;
+  background-color: #e6f9ff;
+}
+
+.footer {
+  height: 80px;
+  width: 100%;
+  position:fixed;
+  bottom: 0;
+}
+
+.index-code {
   text-align: center;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
+
+.search-form-input {
+  padding-top: 3vh;
+  padding-bottom: 15vh;
+  margin: auto;
+  width: fit-content;
+}
+
+.search-form-input .form-control {
+  width: 80vh;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.modal-class {
+  z-index: 1; 
+}
+
+.table {
+  width: 97%;
+  background-color: white;
+  margin: 3vh auto;
+  margin-bottom: 100px;
+}
+
+.products-screen{
+  text-align: center;
+  margin-top: 3vh;
+}
+
+.product-screen{
+  left: 0;
+}
+
+.characteristics .table {
+  width: 20%;
+}
+
+.back-button {
+  margin: 1.5px 1.5px 1.5px 1.5px;
+  background-color: #343a40 !important;
+  border-color: #343a40 !important;
+  border-radius: 20px;
+}
+
+.principal-data {
+  display: flex;
+  width: fit-content;
+  margin-top: 1vh;
+  margin-left: 15vh;
+  margin-bottom: 6vh;
+}
+
+.prod-title {
+  margin-right: 2vh;
+  margin-bottom: 2vh;
+}
+
+.text-principal-data {
+  display: flex;
+  width: fit-content;
+}
+
+.image-container {
+  float: right;
+  margin-right: 15vh;
+}
+
+.product-image {
+  max-width: 30vh;
+  max-height: 30vh;
+}
+
+.header-data {
+  display: ruby;
+}
+
+.characteristics {
+  margin-left: 15vh;
+}
+
+.chars-table {
+  margin: 1vh 0 auto !important;
+}
+
+.prod-price {
+  margin-left: 15vh;
+  margin-top: 3vh;
+}
+
+.comment-container{
+  margin-top: 2vh;
+  margin-left: 15vh;
+  max-width: 40%;
+  margin-bottom: 100px;
+}
+
+.comment {
+  margin-top: 1.5vh;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  min-width: fit-content;
+  font-family: 'Indie Flower', cursive;
+  font-size: 2em
 }

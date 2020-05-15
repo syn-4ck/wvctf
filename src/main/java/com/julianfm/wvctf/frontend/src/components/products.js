@@ -12,7 +12,7 @@ class Products extends Component {
 
   render () {
     return(
-        <div>
+        <div className="products-screen">
             <h1>Products</h1>
             <Table responsive striped bordered hover size="sm">
                 <thead>

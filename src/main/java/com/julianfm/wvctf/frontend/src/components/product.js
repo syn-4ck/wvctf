@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Table } from 'react-bootstrap';
 import InnerHTML from 'dangerously-set-html-content';
+import { TiArrowBack } from 'react-icons/ti';
+import { RiCoinsLine } from 'react-icons/ri';
+import { IconContext } from "react-icons";
 
 class Product extends Component {
 
@@ -67,38 +70,79 @@ class Product extends Component {
       this.xss=false;
     }
     return(
-      <div ref={this.element}>
-          <Button onClick={() => this.props.history.goBack() }>Volver atrás</Button>
+      <div ref={this.element} className="product-screen">
+          <Button className="back-button" onClick={() => this.props.history.goBack() }><IconContext.Provider value={{ size:"2em" }}><TiArrowBack/></IconContext.Provider></Button>
           {this.state && this.state.currentProduct &&
             <div>
-                <div>
-                    <h1>{this.state.currentProduct.name}</h1>
-                    <h3>Precio: {this.state.currentProduct.price} €</h3>
-                <h5>{this.state.currentProduct.description}</h5>
-                <img src={this.state.imageData} alt="Product image"/>
+              <div className="header-data">
+                <div className="principal-data">
+                  <div className="text-principal-data">
+                    <div>
+                    <div className="prod-title">
+                      <h1>{this.state.currentProduct.name}</h1>
+                    </div>
+                    <h5>{this.state.currentProduct.description}</h5>
+                    </div>
+                  </div>
                 </div>
-                <h4>Product characteristics:</h4>
-                <h6>Size: {this.state.currentProduct.size}</h6>
-                <h6>Color: {this.state.currentProduct.color}</h6>
-                <h6>Category: {this.state.currentProduct.category.name}</h6>
-                <h6>Vendor: {this.state.currentProduct.vendor.username}</h6>
-                <br/>
-                <h5>Commentaries:</h5>
-                <Form>
-                  <Form.Group controlId="formBasicName">
-                    <Form.Label></Form.Label>
-                    <Form.Control type="text" required placeholder="Enter your product commentary" ref={(r) => {this.comment = r}}/>
-                  </Form.Group>
-                  <Button variant="primary" onClick={() => this.createComment(this.comment.value)}>Submit</Button>
-                </Form>
-                {
-                  this.state.commentaryList &&
-                      this.state.commentaryList.map( c => {
-                        return (
-                          <InnerHTML html={`<h5><b>${c.users.username}</b>: ${c.text}</h5>`} />
-                        );
-                    } )
-                }
+                <div className="image-container">
+                  <img src={this.state.imageData} alt="Product image" className="product-image"/>
+                </div>
+              </div>
+              <div className="characteristics">
+                  <h4>Product characteristics:</h4>
+                  <br/>
+                  <Table bordered size="sm" className="chars-table">
+                    <tbody>
+                      <tr key="size">
+                        <td><b>Size</b></td>
+                        <td>{this.state.currentProduct.size}</td>
+                      </tr>
+                    </tbody>
+                    <tbody>
+                      <tr key="color">
+                        <td><b>Color</b></td>
+                        <td>{this.state.currentProduct.color}</td>
+                      </tr>
+                    </tbody>
+                    <tbody>
+                      <tr key="category">
+                        <td><b>Category</b></td>
+                        <td>{this.state.currentProduct.category.name}</td>
+                      </tr>
+                    </tbody>
+                    <tbody>
+                      <tr key="vendor">
+                        <td><b>Vendor</b></td>
+                        <td>{this.state.currentProduct.vendor.username}</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </div>
+                <div className="prod-price">
+                    <h3><RiCoinsLine/> {this.state.currentProduct.price} €</h3>
+                </div>
+                <div className="comment-container">
+                  <br/>
+                  <h5><b>Commentaries:</b></h5>
+                  <Form>
+                    <Form.Group controlId="formBasicName">
+                      <Form.Label></Form.Label>
+                      <Form.Control type="text" required placeholder="Enter your product commentary" ref={(r) => {this.comment = r}}/>
+                    </Form.Group>
+                    <Button variant="primary" onClick={() => this.createComment(this.comment.value)}>Submit</Button>
+                  </Form>
+                  {
+                    this.state.commentaryList &&
+                        this.state.commentaryList.map( c => {
+                          return (
+                            <div className="comment">
+                            <InnerHTML html={`<h5><b>${c.users.username}</b>: ${c.text}</h5>`} />
+                            </div>
+                          );
+                      } )
+                  }
+                </div>
             </div>
           }
       </div>

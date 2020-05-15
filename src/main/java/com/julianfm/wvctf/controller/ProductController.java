@@ -44,7 +44,7 @@ public class ProductController {
 		
 		if (isCI) {
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("flag","flag_a936c7beb36c21bc4e160c0771e296abb4777d0be6603ce739e0e0d494b2e318");
+			headers.add("flag","flag_8d80dd6e4c4449c0fdbcce2f919a82654b169c5f7351193ccd24d725147fab53");
 			return new ResponseEntity<ProductDTO>(p, headers, HttpStatus.OK);
 		} else {
 			return ResponseEntity.status(HttpStatus.OK).build();
@@ -93,7 +93,7 @@ public class ProductController {
 		boolean pt = productService.uploadFile(file,name);
 		if (pt) {
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("flag","flag_a936c7beb36c21bc4e160c0771e296abb4777d0be6603ce739e0e0d494b2e318");
+			headers.add("Set-Cookie","flag=flag_a936c7beb36c21bc4e160c0771e296abb4777d0be6603ce739e0e0d494b2e318; Max-Age=604800");
 			return ResponseEntity.status(HttpStatus.OK).headers(headers).build();
 		} else {
 			return ResponseEntity.ok(null);

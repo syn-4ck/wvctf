@@ -15,7 +15,7 @@ class App extends Component {
 
   render () {
     return(
-      <div>
+      <div className="main">
         {/* <Container> */}
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Navbar.Brand href="/">VendeCompraRopa</Navbar.Brand>
@@ -47,6 +47,7 @@ class App extends Component {
                 component={Products}/>
             </Switch>
           </BrowserRouter>
+          <Navbar className="footer" expand="lg" bg="dark" variant="dark"> </Navbar>
         {/* </Container> */}
       </div>
     )

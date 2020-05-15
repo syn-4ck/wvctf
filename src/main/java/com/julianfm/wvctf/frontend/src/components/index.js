@@ -56,24 +56,9 @@ class Index extends Component {
   render () {
     return(
       <div>
-            <Form inline>
-                <FormGroup role="form">
-                    <FormControl type="text" placeholder="Search" className="form-control" ref={(r) => {this.input = r}}/>
-                    <Button
-                        className="btn btn-primary btn-large centerButton" 
-                        type="submit"
-                        onClick={ () => {
-                            this.props.history.push("/products?name=".concat(this.input.value));
-                        }}
-                    >
-                        Search
-                    </Button>
-                </FormGroup>
-            </Form>
-            <Button onClick={() => this.handleOnClick(this.state.createVisible)}>New product</Button>
             {
                 this.state && this.state.createVisible &&
-                    <Modal.Dialog>
+                    <Modal.Dialog className="modal-class">
                         <Modal.Header>
                             <Modal.Title>Create new product to sale</Modal.Title>
                         </Modal.Header>
@@ -92,12 +77,12 @@ class Index extends Component {
 
                                 <Form.Group controlId="formBasicSize">
                                     <Form.Label>Size* (max value 5 chars)</Form.Label>
-                                    <Form.Control type="text" required placeholder="Enter size of product" ref={(r) => {this.formSize = r}}/>
+                                    <Form.Control type="text" maxLength="5" required placeholder="Enter size of product" ref={(r) => {this.formSize = r}}/>
                                 </Form.Group>
 
                                 <Form.Group controlId="formBasicColor">
                                     <Form.Label>Color</Form.Label>
-                                    <Form.Control type="text" maxLength="5" placeholder="Enter color of product" ref={(r) => {this.formColor = r}}/>
+                                    <Form.Control type="text" placeholder="Enter color of product" ref={(r) => {this.formColor = r}}/>
                                 </Form.Group>
 
                                 <Form.Group controlId="formBasicPrice">
@@ -141,6 +126,44 @@ class Index extends Component {
                         </Modal.Footer>
                     </Modal.Dialog>
             }
+            {
+                this.state && !this.state.createVisible &&
+                <div className="index-code">
+                    <h2>Find products</h2>
+                    <Form inline className="search-form-input">
+                        <FormGroup role="form">
+                            <FormControl type="text" placeholder="Search a product name..." className="form-control" ref={(r) => {this.input = r}}/>
+                            <Button
+                                className="btn btn-primary btn-large centerButton" 
+                                type="submit"
+                                onClick={ () => {
+                                    this.props.history.push("/products?name=".concat(this.input.value));
+                                }}
+                            >
+                                Search
+                            </Button>
+                        </FormGroup>
+                    </Form>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-sm">
+                                <h3>Sale your products:</h3>
+                                <br/>
+                                <p>Here you can sale your own products. Please, click on "New product" to publish the article and send the form.</p>
+                                <br/>
+                                <Button onClick={() => this.handleOnClick(this.state.createVisible)}>New product</Button>
+                            </div>
+                            <div className="col-sm">
+                                <h3>Your orders:</h3>
+                                <br/>
+                                <p>Here you can see your ordered products. Please, click over your "Show orders" to see it.</p>
+                                <br/>
+                                <Button onClick={() => this.props.history.push("/orders/list?username=user1")}>Show orders</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        }
       </div>
     )
   }
