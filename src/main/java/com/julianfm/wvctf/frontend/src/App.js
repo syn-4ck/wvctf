@@ -7,6 +7,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Orders from './components/orders';
 
 class App extends Component {
 
@@ -41,10 +42,14 @@ class App extends Component {
                 exact
                 path="/products/:id"
                 component={Product}/>
-              <Route 
+            <Route 
                 exact
                 path="/products"
                 component={Products}/>
+            <Route 
+                exact
+                path="/orders"
+                component={Orders}/>
             </Switch>
           </BrowserRouter>
           <Navbar className="footer" expand="lg" bg="dark" variant="dark"> </Navbar>

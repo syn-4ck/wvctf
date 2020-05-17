@@ -27,6 +27,7 @@ public class WvctfApplication extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE,"/products/*").permitAll()
         .antMatchers(HttpMethod.DELETE,"/category/*").permitAll()
         .antMatchers(HttpMethod.DELETE,"/commentary/*").permitAll()
+        .antMatchers(HttpMethod.DELETE,"/orders/*").permitAll()
         .antMatchers(HttpMethod.GET,"/user/*").permitAll()
         .antMatchers(HttpMethod.GET, "/user").permitAll()
         .antMatchers(HttpMethod.GET,"/products/*").permitAll()
@@ -36,6 +37,8 @@ public class WvctfApplication extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.GET,"/category/*").permitAll()
         .antMatchers(HttpMethod.GET, "/category").permitAll()
         .antMatchers(HttpMethod.GET,"/commentary/*").permitAll()
+        .antMatchers(HttpMethod.GET,"/orders").permitAll()
+        .antMatchers(HttpMethod.GET,"/orders/list").permitAll()
         .antMatchers(HttpMethod.GET,"/image/*").permitAll()
         .anyRequest().authenticated();
     }

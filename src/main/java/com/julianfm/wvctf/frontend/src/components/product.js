@@ -47,9 +47,26 @@ class Product extends Component {
           body: JSON.stringify({users: {"username": "user1"}, product: {"id": this.state.currentProduct.id}, text: textValidated })
       };
       fetch('/commentary', requestOptions)
-      .then(response => {if(response.ok){ alert('Comment published! Please update the page to see it');}});
+      .then(response => {
+        if (response.ok){
+            alert('Commentary published. Please update the page to see it')
+        } else {
+            alert('Ups, any problem ocurred, sorry')
+        }
+      })
     }
     this.update = true;
+  }
+
+  order(id){
+    fetch('/orders?user=user1&product='.concat(id))
+    .then(response => {
+      if (response.ok){
+          alert('Order processed. Please update the page to see it')
+      } else {
+          alert('Ups, any problem ocurred, sorry')
+      }
+    })
   }
 
   render () {
@@ -119,8 +136,11 @@ class Product extends Component {
                     </tbody>
                   </Table>
                 </div>
-                <div className="prod-price">
-                    <h3><RiCoinsLine/> {this.state.currentProduct.price} €</h3>
+                <div className="order-container">
+                  <div className="prod-price">
+                      <h3><RiCoinsLine/> {this.state.currentProduct.price} €</h3>
+                  </div>
+                  <Button variant="primary" onClick={() => this.order(this.state.currentProduct.id)}>Order</Button>
                 </div>
                 <div className="comment-container">
                   <br/>

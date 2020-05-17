@@ -106,6 +106,8 @@
 .prod-price {
   margin-left: 15vh;
   margin-top: 3vh;
+  width:fit-content;
+  margin-right: 13vh;
 }
 
 .comment-container{
@@ -124,4 +126,13 @@
   min-width: fit-content;
   font-family: 'Indie Flower', cursive;
   font-size: 2em
+}
+
+.orders-screen{
+  text-align: center;
+  margin-top: 3vh;
+}
+
+.order-container{
+  display: ruby;
 }

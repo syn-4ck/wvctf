@@ -10,6 +10,7 @@ class Index extends Component {
         createVisible: false,
         categoryValue: "Category",
         commentaryList: [],
+        orders: [],
     }
 
   componentWillMount () {
@@ -34,7 +35,13 @@ class Index extends Component {
         body: JSON.stringify({ name, description, size, color, price, category:{"name":category}, vendor: {"username":"user1"} })
     };
     fetch('/products', requestOptions)
-        .then(response => {if(!response.ok){ alert('Error to create'); return;} else {alert('Product created! Thanks');}});
+        .then(response => {
+            if (response.ok){
+                alert('Product created. Please update the page to see it')
+            } else {
+                alert('Ups, any problem ocurred, sorry')
+            }
+          });
 
 
     //Image
@@ -47,7 +54,7 @@ class Index extends Component {
         body: formData
     };
     fetch(`/upload?name=${name}`, requestOptionsImg)
-        .then(response => {if(!response.ok){ alert('Product created but image not uploaded'); return;}});
+        .then(response => {if(!response.ok){ alert('Product created but image not uploaded');}});
     
 
     this.setState({...this.state, createVisible: !createVisible});
@@ -158,7 +165,7 @@ class Index extends Component {
                                 <br/>
                                 <p>Here you can see your ordered products. Please, click over your "Show orders" to see it.</p>
                                 <br/>
-                                <Button onClick={() => this.props.history.push("/orders/list?username=user1")}>Show orders</Button>
+                                <Button onClick={() => this.props.history.push("/orders?username=user1")}>Show orders</Button>
                             </div>
                         </div>
                     </div>
