@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.julianfm.wvctf.api.dto.UserDTO;
 import com.julianfm.wvctf.api.service.UserService;
 import com.julianfm.wvctf.model.entity.Users;
+import com.julianfm.wvctf.model.entity.mongo.Contact;
 import com.julianfm.wvctf.model.exception.UserNotFoundException;
 import com.julianfm.wvctf.model.repository.UserRepository;
+import com.julianfm.wvctf.model.repository.mongo.ContactRepository;
 
 
 @Service
@@ -19,6 +21,9 @@ public class UserServiceImplementation implements UserService{
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private ContactRepository contactRepository;
 	
 	@Override
 	public UserDTO findUserByUsername (String username) {
@@ -49,6 +54,7 @@ public class UserServiceImplementation implements UserService{
 		if(userDTO!=null) {
 			user = userMapper.map(userDTO, Users.class);
 			insertedUser = userRepository.save(user);
+			contactRepository.save(new Contact(null, user.getUsername(),user.getPhoneNumber(),user.getUsername()+"@wvctf.com"));
 			insertedUserDTO = userMapper.map(insertedUser, UserDTO.class);
 		}
 		return insertedUserDTO;

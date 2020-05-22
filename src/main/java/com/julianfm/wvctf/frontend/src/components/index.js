@@ -166,6 +166,8 @@ class Index extends Component {
                                 <p>Here you can see your ordered products. Please, click over your "Show orders" to see it.</p>
                                 <br/>
                                 <Button onClick={() => this.props.history.push("/orders?username=user1")}>Show orders</Button>
+                                <br/>
+                                <Button onClick={() => this.props.history.push("/contact")} className="contact-button">Get vendor contact</Button>
                             </div>
                         </div>
                     </div>

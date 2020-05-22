@@ -136,3 +136,12 @@
 .order-container{
   display: ruby;
 }
+
+.contact-button{
+  margin-top: 20px;
+}
+
+.contact-data{
+  margin: auto;
+  width: 20%;
+}

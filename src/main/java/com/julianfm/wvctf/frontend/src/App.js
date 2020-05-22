@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Products from './components/products';
 import Product from './components/product';
+import Contact from './components/contact';
 import Index from './components/index';
 import {Navbar, Nav} from 'react-bootstrap';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
@@ -50,6 +51,10 @@ class App extends Component {
                 exact
                 path="/orders"
                 component={Orders}/>
+            <Route 
+                exact
+                path="/contact"
+                component={Contact}/>
             </Switch>
           </BrowserRouter>
           <Navbar className="footer" expand="lg" bg="dark" variant="dark"> </Navbar>
