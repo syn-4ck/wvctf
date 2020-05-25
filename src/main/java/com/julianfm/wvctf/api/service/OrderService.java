@@ -9,7 +9,7 @@ import com.julianfm.wvctf.api.dto.OrderDTO;
 @Service
 public interface OrderService {
 
-	public OrderDTO createOrUpdateOrder (String user, Long product);
+	public boolean createOrUpdateOrder (String user, Long product);
 	
 	public void deleteOrder (Long id);
 	

@@ -30,12 +30,17 @@ public class InitUserAndProductData {
 	void createData() {
 		
 		userRepository.deleteAll();
+		contactRepository.deleteAll();
+		categoryRepository.deleteAll();
+		productRepository.deleteAll();
+		
 		Users user1 = userRepository.save(new Users("user1","user1p","123456789","MyHouse, MyStreet MyNumber, MyCountry"));
 		contactRepository.save(new Contact(null,"user1","123456789","user1@wvctf.com"));
 		Users user2 = userRepository.save(new Users("user2","user2p","987654321","MyHouse, MyStreet MyNumber, MyCountry"));
 		contactRepository.save(new Contact(null,"user2","987654321","user2@wvctf.com"));
+		userRepository.save(new Users("flag_user","flag_9db3e2d42abc40b2ac3ae54b7d6e2c528fb22f288402e5d671e6cf8c194413fc","00112233","MyHouse, MyStreet MyNumber, MyCountry"));
+		contactRepository.save(new Contact(null,"","flag_a6c5023f020fac7b8bb87ae1aad338ea80567057afe1dbf520a294f5cd931334","noreply@wvctf.com"));
 		
-		categoryRepository.deleteAll();
 		Category trousers = categoryRepository.save(new Category("Trousers"));
 		categoryRepository.save(new Category("Shirts and t-shits"));
 		Category shoes = categoryRepository.save(new Category("Shoes"));

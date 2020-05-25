@@ -47,7 +47,7 @@ public class ProductServiceImplementation implements ProductService {
 			BufferedReader input =  new BufferedReader (new InputStreamReader(p.getInputStream()));  
 			line = input.lines().collect(Collectors.joining()); 
 			input.close();
-			if (line.length()!=0) {
+			if (line.length()>0) {
 				return true;
 			}
 		} catch (IOException e) {

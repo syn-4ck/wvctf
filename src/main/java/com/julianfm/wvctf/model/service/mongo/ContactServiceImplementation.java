@@ -1,5 +1,8 @@
 package com.julianfm.wvctf.model.service.mongo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,20 +19,22 @@ public class ContactServiceImplementation implements ContactService{
 	ContactRepository contactRepository;
 	
 	@Override
-	public ContactDTO findByName(String username) {
+	public List<ContactDTO> findByName(String username) {
 		
 		ModelMapper contactMapper =  new ModelMapper();
 		
-		Contact contact = new Contact();
-		ContactDTO findContactDTO = new ContactDTO();
+		List<Contact> contacts = new ArrayList<Contact>();
+		List<ContactDTO> findContactsDTO = new ArrayList<ContactDTO>();
 		
-		contact = contactRepository.findByName(username);
+		contacts = contactRepository.findByName(username);
 		
-		if (contact!=null) {
-			findContactDTO = contactMapper.map(contact,ContactDTO.class);
+		if (contacts.size()>0) {
+			contacts.stream().forEach(c -> {
+				findContactsDTO.add(contactMapper.map(c,ContactDTO.class));
+			});
 		}
 		
-		return findContactDTO;
+		return findContactsDTO;
 	}
 
 }

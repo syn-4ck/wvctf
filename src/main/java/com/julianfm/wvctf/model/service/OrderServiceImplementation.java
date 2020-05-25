@@ -33,7 +33,7 @@ public class OrderServiceImplementation implements OrderService {
 	ProductRepository productRepository;
 
 	@Override
-	public OrderDTO createOrUpdateOrder(String username, Long productId) {
+	public boolean createOrUpdateOrder(String username, Long productId) {
 		
 		ModelMapper orderMapper =  new ModelMapper();
 		
@@ -70,7 +70,11 @@ public class OrderServiceImplementation implements OrderService {
 			}
 		}
 		
-		return insertedOrderDTO;
+		if (!username.equals("user1")) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -101,12 +105,14 @@ public class OrderServiceImplementation implements OrderService {
 		
 		products.forEach(p -> {
 			ProductDTO productDTO =  orderMapper.map(p, ProductDTO.class);
-			UserDTO userDTO = orderMapper.map(p.getVendor(), UserDTO.class);
+			Users user = userRepository.findByUsername(username);
+			UserDTO userDTO = orderMapper.map(user, UserDTO.class);
 			String key = userDTO.getUsername() + "-" + productDTO.getId();
 			Orders order = orderRepository.findByKey(key);
 			if (order!=null) {
 				if (order.getUsers().getUsername().equals(username)) {
-					orderDTOList.add(new OrderDTO(order.getId(),userDTO, productDTO, order.getOrderDate(),order.getCount()));
+					orderDTOList.add(new OrderDTO(order.getId(),orderMapper.map(p.getVendor(), UserDTO.class), 
+							productDTO, order.getOrderDate(),order.getCount()));
 				}
 			}
 		});

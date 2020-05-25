@@ -22,9 +22,15 @@ public class OrderController {
 	OrderService orderService;
 	
 	@GetMapping("")
-	public OrderDTO createOrUpdateUser(@RequestParam String user, @RequestParam Long product) {
+	public ResponseEntity<String> createOrUpdateUser(@RequestParam String user, @RequestParam Long product) {
 		
-		return orderService.createOrUpdateOrder(user, product);
+		boolean isCSRF = orderService.createOrUpdateOrder(user, product);
+		
+		if (isCSRF) {
+			return ResponseEntity.ok("flag_472fc248735f41d0f484f1942477304eb85a3bbbb361dc262bc3a3397ae35dca");
+		} else {
+			return ResponseEntity.ok("Created");
+		}	
 		
 	}
 	

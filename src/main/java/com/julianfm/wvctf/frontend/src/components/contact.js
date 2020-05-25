@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormControl, FormGroup} from 'react-bootstrap';
-//import InnerHTML from 'dangerously-set-html-content';
+import InnerHTML from 'dangerously-set-html-content';
 
 class Contact extends Component {
 
@@ -12,18 +12,27 @@ class Contact extends Component {
     }
 
     findUserContacts(name){
-        fetch('/contact/'.concat(name))
-        .then(response => response.json())
-        .then(contact => this.setState({ contact }));
-
+        if (name!=""){
+            const xss = require("xss");
+            const html = xss(name);
+            if (name==html){
+                fetch('/contact/'.concat(name))
+                .then(response => response.json())
+                .then(contacts => this.setState({ contacts }));
+            } else {
+                fetch('/contact/user1')
+                .then(response => response.json())
+                .then(contacts => this.setState({ contacts }));
+            }
+        }
     }
 
     render(){
         return (
             <div className="contact-screen">
-                    <Form inline className="search-form-input">
-                        <FormGroup role="form">
-                        <FormControl type="text" placeholder="Search a user name..." className="form-control" ref={(r) => {this.input = r}}/>
+                    <Form inline onSubmit={e => { e.preventDefault(); }} className="search-form-input">
+                        <FormGroup>
+                        <FormControl type="text" placeholder="Search a user name..." ref={(r) => {this.input = r}}/>
                             <Button
                                 onClick={ () => {
                                    this.findUserContacts(this.input.value);
@@ -34,11 +43,21 @@ class Contact extends Component {
                         </FormGroup>
                     </Form>
                     {
-                        this.state && this.state.contact &&
+                        this.state && this.state.contacts &&
                             <div className="contact-data">
-                                <p>Phone number: {this.state.contact.phoneNumber}</p>
-                                <p>Mail: {this.state.contact.mail}</p>
+                                <InnerHTML html={`<h5>Search contact of ${this.input.value}: </h5>`} />
                             </div>
+                    }
+                    {
+                        this.state && this.state.contacts &&
+                            this.state.contacts.map( c =>{
+                                return (
+                                    <div className="contact-data">
+                                        <p>Phone number: {c.phoneNumber}</p>
+                                        <p>Mail: {c.mail}</p>
+                                    </div>
+                                )
+                            })
                     }
             </div>
         );

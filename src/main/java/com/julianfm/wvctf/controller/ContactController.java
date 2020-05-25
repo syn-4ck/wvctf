@@ -1,5 +1,7 @@
 package com.julianfm.wvctf.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +19,7 @@ public class ContactController {
 	ContactService contactService;
 
 	@GetMapping("/{name}")
-	public ContactDTO findByUsername(@PathVariable String name) {
+	public List<ContactDTO> findByUsername(@PathVariable String name) {
 		return contactService.findByName(name);
 	}
 	

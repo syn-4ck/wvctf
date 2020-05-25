@@ -4,8 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 class Orders extends Component {
 
     componentWillMount(){
-        const username = this.props.location.search.split("username=")[1];
-        fetch('/orders/list?username='.concat(username))
+        fetch('/orders/list?username=user1')
         .then(response => response.json())
         .then(orders => this.setState({ orders }));
     }

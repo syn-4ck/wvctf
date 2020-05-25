@@ -11,6 +11,7 @@ class Index extends Component {
         categoryValue: "Category",
         commentaryList: [],
         orders: [],
+        contacts: [],
     }
 
   componentWillMount () {

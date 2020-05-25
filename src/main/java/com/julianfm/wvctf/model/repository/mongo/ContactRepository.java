@@ -16,10 +16,13 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.mongodb.util.JSON;
 
 public interface ContactRepository extends MongoRepository<Contact,String> {
 	
-	public default Contact findByName (String name) {
+	public default List<Contact> findByName (String name) {
+		
+		List<Contact> contacts = new ArrayList<Contact>();
 		
 		ServerAddress address = new ServerAddress("localhost", 27017);
 		
@@ -33,29 +36,32 @@ public interface ContactRepository extends MongoRepository<Contact,String> {
 		DB database = mongoClient.getDB("WVCTF");
 		DBCollection collection = database.getCollection("Contact");
 		
-		BasicDBObject searchQuery = new BasicDBObject();
-		searchQuery.put("name", name);
-		DBCursor cursor = collection.find(searchQuery);
+		String parsedName = name;
+		if (!name.startsWith("{")) {
+			parsedName="\""+name+"\"";
+		}
 		
-		Contact contact = new Contact();
+		String searchQuery = "{\"name\":"+ parsedName +"}";
+		DBObject query = (DBObject) JSON.parse(searchQuery);
+		DBCursor cursor = collection.find(query);
 		
 		while (cursor.hasNext()) {
 		    DBObject theObj = cursor.next();
+		    
+		    Contact contact = new Contact();
 		    
 		    contact.setId(null);
 		    contact.setName((String)theObj.get("name"));
 		    contact.setPhoneNumber((String)theObj.get("phoneNumber"));
 		    contact.setMail((String)theObj.get("mail"));
 		    
-		}
-		
-		if (contact.getName()==null) {
-			throw new UserNotFoundException();
+		    contacts.add(contact);
+		    
 		}
 		
 		mongoClient.close();
 		
-		return contact;
+		return contacts;
 		
 	}
 
