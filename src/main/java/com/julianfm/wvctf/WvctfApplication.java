@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,15 +28,19 @@ public class WvctfApplication extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE,"/products/*").permitAll()
         .antMatchers(HttpMethod.DELETE,"/category/*").permitAll()
         .antMatchers(HttpMethod.DELETE,"/commentary/*").permitAll()
+        .antMatchers(HttpMethod.DELETE,"/orders/*").permitAll()
         .antMatchers(HttpMethod.GET,"/user/*").permitAll()
         .antMatchers(HttpMethod.GET, "/user").permitAll()
         .antMatchers(HttpMethod.GET,"/products/*").permitAll()
         .antMatchers(HttpMethod.GET,"/products/search/*").permitAll()
         .antMatchers(HttpMethod.GET,"/products/search").permitAll()
         .antMatchers(HttpMethod.GET, "/products").permitAll()
+        .antMatchers(HttpMethod.GET,"/contact/*").permitAll()
         .antMatchers(HttpMethod.GET,"/category/*").permitAll()
         .antMatchers(HttpMethod.GET, "/category").permitAll()
         .antMatchers(HttpMethod.GET,"/commentary/*").permitAll()
+        .antMatchers(HttpMethod.GET,"/orders").permitAll()
+        .antMatchers(HttpMethod.GET,"/orders/list").permitAll()
         .antMatchers(HttpMethod.GET,"/image/*").permitAll()
         .anyRequest().authenticated();
     }

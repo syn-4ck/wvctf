@@ -17,6 +17,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 	
 	public default List<Product> findByName (String name) throws SQLException {
 		
+		String nameQuery = name.toLowerCase();
+		
 		String url = "jdbc:postgresql://localhost:5432/wvctf";
         Connection conn = DriverManager.getConnection(url,"postgres","root");
         
@@ -27,8 +29,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
         } else {
         	sql = "SELECT *"
 			      + "FROM product "
-			      + "WHERE name LIKE '%"
-			      + name 
+			      + "WHERE LOWER( name ) LIKE '%"
+			      + nameQuery
 			      + "%'";
         }
         
@@ -37,7 +39,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 		List<Product> products = new ArrayList<Product>();
 		
 		while(rs.next()) {
-			Product p = new Product();
+			Product p = new Product(); 
 			p.setId(rs.getLong("id"));
 			p.setName(rs.getString("name"));
 			p.setDescription(rs.getString("description"));

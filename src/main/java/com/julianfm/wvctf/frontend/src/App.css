@@ -13,6 +13,11 @@
   bottom: 0;
 }
 
+.footer_img{
+  max-height: 3.5rem;
+  margin-left: 11rem;
+}
+
 .index-code {
   text-align: center;
   padding-top: 10vh;
@@ -106,6 +111,8 @@
 .prod-price {
   margin-left: 15vh;
   margin-top: 3vh;
+  width:fit-content;
+  margin-right: 13vh;
 }
 
 .comment-container{
@@ -124,4 +131,22 @@
   min-width: fit-content;
   font-family: 'Indie Flower', cursive;
   font-size: 2em
+}
+
+.orders-screen{
+  text-align: center;
+  margin-top: 3vh;
+}
+
+.order-container{
+  display: ruby;
+}
+
+.contact-button{
+  margin-top: 20px;
+}
+
+.contact-data{
+  margin: auto;
+  width: 20%;
 }
