@@ -4,6 +4,7 @@ import {Form, FormControl, FormGroup, Button, Modal, Dropdown} from 'react-boots
 class Index extends Component {
 
     state = {
+        ...this.state,
         products: [],
         currentProduct: {},
         categories: [],
@@ -12,10 +13,12 @@ class Index extends Component {
         commentaryList: [],
         orders: [],
         contacts: [],
-    }
+      }
 
   componentWillMount () {
-    fetch('/category')
+    fetch('/category',{
+        headers: { 'Authorization': this.props.getAuthToken() },
+      })
       .then(response => response.json())
       .then(categories => this.setState({ categories }));
   }
@@ -32,7 +35,7 @@ class Index extends Component {
 
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': this.props.getAuthToken() },
         body: JSON.stringify({ name, description, size, color, price, category:{"name":category}, vendor: {"username":"user1"} })
     };
     fetch('/products', requestOptions)
@@ -51,7 +54,7 @@ class Index extends Component {
 
     const requestOptionsImg = {
         method: 'POST',
-        headers: {},
+        headers: { 'Content-Type': 'application/json', 'Authorization': this.props.getAuthToken() },
         body: formData
     };
     fetch(`/upload?name=${name}`, requestOptionsImg)
@@ -145,7 +148,7 @@ class Index extends Component {
                                 className="btn btn-primary btn-large centerButton" 
                                 type="submit"
                                 onClick={ () => {
-                                    this.props.history.push("/products?name=".concat(this.input.value));
+                                    this.props.context.history.push("/app/products?name=".concat(this.input.value));
                                 }}
                             >
                                 Search
@@ -160,15 +163,17 @@ class Index extends Component {
                                 <p>Here you can sale your own products. Please, click on "New product" to publish the article and send the form.</p>
                                 <br/>
                                 <Button onClick={() => this.handleOnClick(this.state.createVisible)}>New product</Button>
+                                <br/>
+                                <Button onClick={() => this.props.context.history.push("/app/user")} className="contact-button">My user</Button>
                             </div>
                             <div className="col-sm">
                                 <h3>Your orders:</h3>
                                 <br/>
                                 <p>Here you can see your ordered products. Please, click over your "Show orders" to see it.</p>
                                 <br/>
-                                <Button onClick={() => this.props.history.push("/orders?username=user1")}>Show orders</Button>
+                                <Button onClick={() => this.props.context.history.push("/app/orders?username=user1")}>Show orders</Button>
                                 <br/>
-                                <Button onClick={() => this.props.history.push("/contact")} className="contact-button">Get vendor contact</Button>
+                                <Button onClick={() => this.props.context.history.push("/app/contact")} className="contact-button">Get vendor contact</Button>
                             </div>
                         </div>
                     </div>

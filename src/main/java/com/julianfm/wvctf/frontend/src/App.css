@@ -24,6 +24,17 @@
   padding-bottom: 10vh;
 }
 
+.user-data{
+  padding-top: 4rem;
+  text-align: center;
+  margin: auto;
+  width:40%;
+}
+
+.user-data-button{
+  margin-top: 2rem;
+}
+
 .search-form-input {
   padding-top: 3vh;
   padding-bottom: 15vh;
@@ -149,4 +160,72 @@
 .contact-data{
   margin: auto;
   width: 20%;
+}
+
+.login-screen{
+  padding-top: 6rem;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.register{
+  padding-top: 5rem;
+}
+
+.login-screen .form-group{
+  padding-top: 1rem;
+  text-align: left;
+}
+
+.app-button-mgr{
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+.buttons-top-right-mgr{
+  position: relative;
+  float: right;
+}
+
+.mgr-screen{
+  text-align: center;
+}
+
+.data-contain-manager{
+  position: absolute;
+  bottom: 150px;
+  width: 100%;
+}
+
+.logout-button{
+  display: block;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.flags-table .table-responsive{
+  max-height: 220px;
+}
+
+.presents{
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.trophy_img{
+  max-height: 12rem;
+  margin-bottom: 20px;
+}
+
+.medal_img{
+  max-height: 8.5rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 20px;
+}
+
+.newflag-screen{
+  padding-top: 6rem;
+  margin: auto;
+  width: 50%;
+  text-align: center;
 }

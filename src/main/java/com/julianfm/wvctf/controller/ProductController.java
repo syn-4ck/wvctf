@@ -11,12 +11,14 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +29,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.julianfm.wvctf.api.dto.CategoryDTO;
+import com.julianfm.wvctf.api.dto.FlagDTO;
+import com.julianfm.wvctf.api.dto.MngUserDTO;
 import com.julianfm.wvctf.api.dto.ProductDTO;
+import com.julianfm.wvctf.api.dto.UserDTO;
+import com.julianfm.wvctf.api.dto.UserFlagDTO;
+import com.julianfm.wvctf.api.dto.UserLogin;
 import com.julianfm.wvctf.api.service.ProductService;
+import com.julianfm.wvctf.api.service.UserService;
+import com.julianfm.wvctf.api.service.mng.MngUserService;
+import com.julianfm.wvctf.model.entity.mng.ManageUser;
+import com.julianfm.wvctf.model.entity.mng.UserFlag;
+import com.julianfm.wvctf.model.repository.mng.ManageUserRepository;
 
 @RestController
 @RequestMapping("/")
@@ -37,6 +50,18 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	MngUserService mngUserService;
+	
+	@Autowired
+	ManageUserRepository mgrUserRepository;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@PostMapping("/products")
 	public ResponseEntity<ProductDTO> createOrUpdateUser(@Valid @RequestBody ProductDTO productDTO) {
 		boolean isCI = productService.isCI(productDTO.getName());
@@ -44,7 +69,7 @@ public class ProductController {
 		
 		if (isCI) {
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("flag","flag_8d80dd6e4c4449c0fdbcce2f919a82654b169c5f7351193ccd24d725147fab53");
+			headers.add("flag","flag_so_8d80dd6e4c4449c0fdbcce2f919a82654b169c5f7351193ccd24d725147fab53");
 			return new ResponseEntity<ProductDTO>(p, headers, HttpStatus.OK);
 		} else {
 			return ResponseEntity.status(HttpStatus.OK).build();
@@ -93,7 +118,7 @@ public class ProductController {
 		boolean pt = productService.uploadFile(file,name);
 		if (pt) {
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("Set-Cookie","flag=flag_a936c7beb36c21bc4e160c0771e296abb4777d0be6603ce739e0e0d494b2e318; Max-Age=604800");
+			headers.add("Set-Cookie","flag=flag_so_a936c7beb36c21bc4e160c0771e296abb4777d0be6603ce739e0e0d494b2e318; Max-Age=600000");
 			return ResponseEntity.status(HttpStatus.OK).headers(headers).build();
 		} else {
 			return ResponseEntity.ok(null);
@@ -112,6 +137,47 @@ public class ProductController {
                 .ok()
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(new InputStreamResource(targetStream));
+	}
+	
+	@GetMapping("/credentials")
+	public UserLogin getUser (@RequestParam("username") String username, @RequestParam("password") String password) {
+		
+		ModelMapper mgrUserMapper = new ModelMapper();
+		ManageUser mgrUser = mgrUserRepository.findByUsername(username);
+		
+		if (mgrUser!=null) {
+			if (passwordEncoder.matches(password, mgrUser.getPassword())) {
+				return mgrUserMapper.map(mgrUser,UserLogin.class);
+			}
+		}
+		
+		return new UserLogin();
+	}
+	
+	@PostMapping("/mgruser")
+	public MngUserDTO createOrUpdateUser(@Valid @RequestBody MngUserDTO userDTO) {
+		return mngUserService.createOrUpdateMngUser(userDTO);
+	}
+	
+	@GetMapping("/mgruser/{username}")
+	public UserLogin getUser(@PathVariable String username) {
+		ModelMapper mgrUserMapper = new ModelMapper();
+		ManageUser user = mgrUserRepository.findByUsername(username);
+		if (user!=null) {
+		return mgrUserMapper.map(user,UserLogin.class);
+		} else {
+			return null;
+		}
+	}
+	
+	@PostMapping("/flag")
+	public UserFlag createUserFlag(@Valid @RequestBody UserFlagDTO uf) throws Exception {
+		return mngUserService.createFlag(uf.getUsername(), uf.getFlag());
+	}
+	
+	@GetMapping("/flags/{username}")
+	public List<FlagDTO> getFlagsUser(@PathVariable String username){
+		return mngUserService.getFlagsOfUser(username);
 	}
 	
 }

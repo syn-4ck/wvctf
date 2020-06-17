@@ -1,6 +1,6 @@
 package com.julianfm.wvctf.model.util.init;
 
-import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.julianfm.wvctf.model.entity.Category;
@@ -12,31 +12,33 @@ import com.julianfm.wvctf.model.repository.ProductRepository;
 import com.julianfm.wvctf.model.repository.UserRepository;
 import com.julianfm.wvctf.model.repository.mongo.ContactRepository;
 
-import lombok.RequiredArgsConstructor;
-
 @Component
-@RequiredArgsConstructor
-public class InitUserAndProductData {
-
-	private final UserRepository userRepository;
+public class ResetDB {
 	
-	private final ProductRepository productRepository;
+	@Autowired
+	UserRepository userRepository;
 	
-	private final CategoryRepository categoryRepository;
+	@Autowired
+	ProductRepository productRepository;
 	
-	private final ContactRepository contactRepository;
+	@Autowired
+	CategoryRepository categoryRepository;
 	
-	@PostConstruct
-	void createData() {
-		
+	@Autowired
+	ContactRepository contactRepository;
+	
+	public void resetDBvalues () {
+		contactRepository.deleteAll();
 		productRepository.deleteAll();
 		categoryRepository.deleteAll();
 		userRepository.deleteAll();
 		
 		Users user1 = userRepository.save(new Users("user1","user1p","123456789","MyHouse, MyStreet MyNumber, MyCountry"));
+		contactRepository.save(new Contact(null,"user1","123456789","user1@wvctf.com"));
 		Users user2 = userRepository.save(new Users("user2","user2p","987654321","MyHouse, MyStreet MyNumber, MyCountry"));
-		userRepository.save(new Users("flag_user","flag_di_9db3e2d42abc40b2ac3ae54b7d6e2c528fb22f288402e5d671e6cf8c194413fc","00112233","MyHouse, MyStreet MyNumber, MyCountry"));
-		contactRepository.save(new Contact(null,"","flag_di_a6c5023f020fac7b8bb87ae1aad338ea80567057afe1dbf520a294f5cd931334","noreply@wvctf.com"));
+		contactRepository.save(new Contact(null,"user2","987654321","user2@wvctf.com"));
+		userRepository.save(new Users("flag_user","flag_9db3e2d42abc40b2ac3ae54b7d6e2c528fb22f288402e5d671e6cf8c194413fc","00112233","MyHouse, MyStreet MyNumber, MyCountry"));
+		contactRepository.save(new Contact(null,"","flag_a6c5023f020fac7b8bb87ae1aad338ea80567057afe1dbf520a294f5cd931334","noreply@wvctf.com"));
 		
 		Category trousers = categoryRepository.save(new Category("Trousers"));
 		categoryRepository.save(new Category("Shirts and t-shits"));
@@ -61,6 +63,9 @@ public class InitUserAndProductData {
 		productRepository.save(new Product(null,"Falda larga", "Oferta! Falda roja de terciopelo para eventos especiales.", 
 				skirt, "S-L", "Rojo", 39.99, user1));
 		
+		contactRepository.deleteAll();
+		contactRepository.save(new Contact(null,"user1","123456789","user1@wvctf.com"));
+		contactRepository.save(new Contact(null,"user2","987654321","user2@wvctf.com"));
 	}
-	
+
 }

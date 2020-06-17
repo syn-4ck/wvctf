@@ -4,7 +4,9 @@ import { Table, Button } from 'react-bootstrap';
 class Orders extends Component {
 
     componentWillMount(){
-        fetch('/orders/list?username=user1')
+        fetch('/orders/list?username=user1',{
+            headers: { 'Authorization': this.props.getAuthToken() },
+          })
         .then(response => response.json())
         .then(orders => this.setState({ orders }));
     }
@@ -12,6 +14,7 @@ class Orders extends Component {
     cancelOrder (id){
         fetch('/orders/'.concat(id), {
             method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', 'Authorization': this.props.getAuthToken() },
           }).then(response => {
             if (response.ok){
                 alert('Order canceled. Please update the page to see it')
