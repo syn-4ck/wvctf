@@ -8,12 +8,17 @@ import { IconContext } from "react-icons";
 class Product extends Component {
 
   componentWillMount () {
-    fetch(this.props.history.location.pathname)
+    const idProd = this.props.context.history.location.pathname.split("/products/")[1];
+
+    fetch("/products/".concat(idProd),{
+      headers: { 'Authorization': this.props.getAuthToken() },
+    })
       .then(response => response.json())
       .then(currentProduct => this.setState({ currentProduct }));
 
-    const idProd = this.props.history.location.pathname.split("/products/")[1];
-    fetch("/commentary/".concat(idProd))
+    fetch("/commentary/".concat(idProd),{
+      headers: { 'Authorization': this.props.getAuthToken() },
+    })
         .then(response => response.json())
         .then(commentaryList => this.setState({ commentaryList }));
 
@@ -43,7 +48,7 @@ class Product extends Component {
     if (textValidated){
       const requestOptions = {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Authorization': this.props.getAuthToken() },
           body: JSON.stringify({users: {"username": "user1"}, product: {"id": this.state.currentProduct.id}, text: textValidated })
       };
       fetch('/commentary', requestOptions)
@@ -59,7 +64,9 @@ class Product extends Component {
   }
 
   order(id){
-    fetch('/orders?user=user1&product='.concat(id))
+    fetch('/orders?user=user1&product='.concat(id),{
+      headers: { 'Authorization': this.props.getAuthToken() },
+    })
     .then(response => {
       if (response.ok){
           alert('Order processed. Please update the page to see it')
@@ -71,7 +78,9 @@ class Product extends Component {
 
   render () {
     if (this.image && this.state && this.state.currentProduct){
-      fetch("/image/".concat(this.state.currentProduct.name))
+      fetch("/image/".concat(this.state.currentProduct.name),{
+        headers: { 'Authorization': this.props.getAuthToken() },
+      })
       .then(response => response.blob())
       .then(data => this.setState({ ...this.state, imageData: URL.createObjectURL(data) }));
       this.image=false;
@@ -81,14 +90,14 @@ class Product extends Component {
       this.state.commentaryList.map( c =>{
         const html = xss(c.text);
         if (c.text!==html){
-          console.log('flag_08f0ee3843dd031f48a1fa14045b5faa9c1f38eb21ac941479421da5c99afafa');
+          console.log('flag_xss_08f0ee3843dd031f48a1fa14045b5faa9c1f38eb21ac941479421da5c99afafa');
         };
       });
       this.xss=false;
     }
     return(
       <div ref={this.element} className="product-screen">
-          <Button className="back-button" onClick={() => this.props.history.goBack() }><IconContext.Provider value={{ size:"2em" }}><TiArrowBack/></IconContext.Provider></Button>
+          <Button className="back-button" onClick={() => this.props.context.history.goBack() }><IconContext.Provider value={{ size:"2em" }}><TiArrowBack/></IconContext.Provider></Button>
           {this.state && this.state.currentProduct &&
             <div>
               <div className="header-data">

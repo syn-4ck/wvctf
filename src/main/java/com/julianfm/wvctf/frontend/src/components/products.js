@@ -4,8 +4,10 @@ import {Table} from 'react-bootstrap';
 class Products extends Component {
 
   componentWillMount () {
-    const name = this.props.location.search.split("name=")[1];
-    fetch('/products/search/'.concat(name))
+    const name = this.props.context.location.search.split("name=")[1];
+    fetch('/products/search/'.concat(name),{
+        headers: { 'Authorization': this.props.getAuthToken() },
+      })
       .then(response => response.json())
       .then(products => this.setState({ products }));
   }
@@ -31,9 +33,9 @@ class Products extends Component {
                     {
                         this.state &&
                             this.state.products.map( prod =>{
-                                const uri = "/products/".concat(prod.id);
+                                const uri = "/app/products/".concat(prod.id);
                                 return (
-                                    <tr onClick={() => this.props.history.push(uri)} key={prod.id}>
+                                    <tr onClick={() => this.props.context.history.push(uri)} key={prod.id}>
                                         <td>{prod.id}</td>
                                         <td>{prod.name}</td>
                                         <td>{prod.description}</td>

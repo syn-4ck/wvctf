@@ -27,7 +27,7 @@ public class OrderController {
 		boolean isCSRF = orderService.createOrUpdateOrder(user, product);
 		
 		if (isCSRF) {
-			return ResponseEntity.ok("flag_472fc248735f41d0f484f1942477304eb85a3bbbb361dc262bc3a3397ae35dca");
+			return ResponseEntity.ok("flag_sf_472fc248735f41d0f484f1942477304eb85a3bbbb361dc262bc3a3397ae35dca");
 		} else {
 			return ResponseEntity.ok("Created");
 		}	

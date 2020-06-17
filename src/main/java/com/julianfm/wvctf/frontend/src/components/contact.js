@@ -11,18 +11,34 @@ class Contact extends Component {
     componentDidMoun(){
     }
 
+    showFlag(name){
+        var div = document.createElement('div');
+        div.innerHTML = name;
+        var scripts = div.getElementsByTagName('script');
+        var i = scripts.length;
+        if (i>0){
+            alert('flag_xss_f655f2a8f72c55b96e90ea538fa59e9b34e16f1bb7971027e078d045772fee2e');
+        }
+    }
+
     findUserContacts(name){
         if (name!=""){
             const xss = require("xss");
             const html = xss(name);
             if (name==html){
-                fetch('/contact/'.concat(name))
+                fetch('/contact/'.concat(name),{
+                    headers: { 'Authorization': this.props.getAuthToken() },
+                  })
                 .then(response => response.json())
                 .then(contacts => this.setState({ contacts }));
             } else {
-                fetch('/contact/user1')
+                fetch('/contact/user1',{
+                    headers: { 'Authorization': this.props.getAuthToken() },
+                  })
                 .then(response => response.json())
                 .then(contacts => this.setState({ contacts }));
+
+                this.showFlag(name);
             }
         }
     }
