@@ -18,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -92,6 +93,11 @@ public class ProductController {
 		return new ArrayList<ProductDTO>();
 	}
 	
+	@GetMapping("/products/vendor/{name}")
+	public List<ProductDTO> findByVendor(@PathVariable String name) {
+		return productService.findByVendor(name);
+	}
+	
 	@GetMapping("/products/search/{name}")
 	public List<ProductDTO> findByName(@PathVariable String name) {
 		try {
@@ -148,10 +154,13 @@ public class ProductController {
 		if (mgrUser!=null) {
 			if (passwordEncoder.matches(password, mgrUser.getPassword())) {
 				return mgrUserMapper.map(mgrUser,UserLogin.class);
+			} else {
+				throw new UsernameNotFoundException("");
 			}
+		} else {
+			throw new UsernameNotFoundException("");
 		}
 		
-		return new UserLogin();
 	}
 	
 	@PostMapping("/mgruser")

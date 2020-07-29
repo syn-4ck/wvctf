@@ -6,7 +6,7 @@ import User from './components/user';
 import Index from './components/index';
 import {Navbar, Nav} from 'react-bootstrap';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import { FaUserCircle } from "react-icons/fa";
+import { FiHelpCircle } from "react-icons/fi";
 import { MdSettingsApplications } from "react-icons/md";
 import campus from './img/logo_campus.png';
 import ucam from './img/logo_ucam.png';
@@ -17,20 +17,26 @@ import excellence from './img/logo_excellenceInnova.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Orders from './components/orders';
+import Sales from './components/sales';
+import MySales from './components/mysales';
 import PrivateRouter from './components/util/private-route';
 import Manage from './components/manage';
+import Login from './components/login';
+import Help from './components/help';
 
 class App extends Component {
 
   state = {
     authenticated: false,
     authToken:'',
+    csrf:false,
   }
 
   constructor(props){
     super(props);
     this.handlerLogin = this.handlerLogin.bind(this)
     this.handlerLogout = this.handlerLogout.bind(this)
+    this.setCSRF = this.setCSRF.bind(this)
   }
 
   componentWillMount () {
@@ -46,6 +52,7 @@ class App extends Component {
       this.setState({
           authenticated: true,
           authToken:'Basic ' + btoa(cred),
+          csrf:false,
       });
       localStorage.setItem('state', JSON.stringify(this.state));
   }
@@ -53,6 +60,7 @@ class App extends Component {
     this.setState({
         authenticated: false,
         authToken:'',
+        csrf:false,
     });
     localStorage.removeItem('state');
   }
@@ -64,6 +72,17 @@ class App extends Component {
   getAuthToken(){
     return this.state.authToken;
   }
+
+  setCSRF(){
+    debugger;
+    this.setState({...this.state, csrf:true})
+    localStorage.setItem('state', JSON.stringify(this.state));
+  }
+
+  isCSRF(){
+    return this.state.csrf;
+  }
+
 
   render () {
     return(
@@ -77,6 +96,7 @@ class App extends Component {
             </Nav>
             <Nav>
               <Nav.Link href="/"><MdSettingsApplications/> Manage flags</Nav.Link>
+              <Nav.Link href="/help"><FiHelpCircle/> Manual and help</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -84,11 +104,20 @@ class App extends Component {
             <Switch>
             <Route
                 exact
+                path="/login"
+                component={(history) => <Login 
+                  getAuthToken={()=>this.getAuthToken()} 
+                  isAuth={()=>this.isAuth()} 
+                  handlerLogin={(cred)=>this.handlerLogin(cred)} 
+                  context={history}/>} 
+                />
+            <PrivateRouter 
+                authenticated={this.state.authenticated}
+                exact
                 path="/"
                 component={(history) => <Manage 
                   getAuthToken={()=>this.getAuthToken()} 
                   isAuth={()=>this.isAuth()} 
-                  handlerLogin={(cred)=>this.handlerLogin(cred)} 
                   handlerLogout={()=>this.handlerLogout()} 
                   context={history}/>} 
                 />
@@ -101,7 +130,7 @@ class App extends Component {
                 authenticated={this.state.authenticated}
                 exact
                 path="/app/products/:id"
-                component={(history) => <Product getAuthToken={()=>this.getAuthToken()} context={history}/>}/>
+                component={(history) => <Product getAuthToken={()=>this.getAuthToken()} setCSRF={() => this.setCSRF()} context={history}/>}/>
             <PrivateRouter 
                 authenticated={this.state.authenticated}
                 exact
@@ -112,6 +141,16 @@ class App extends Component {
                 exact
                 path="/app/orders"
                 component={(history) => <Orders getAuthToken={()=>this.getAuthToken()} context={history}/>}/>
+            <PrivateRouter 
+                authenticated={this.state.authenticated}
+                exact
+                path="/app/sales"
+                component={(history) => <Sales getAuthToken={()=>this.getAuthToken()} context={history}/>}/>
+            <PrivateRouter 
+                authenticated={this.state.authenticated}
+                exact
+                path="/app/mysales"
+                component={(history) => <MySales getAuthToken={()=>this.getAuthToken()} isCSRF={() => this.isCSRF()} context={history}/>}/>
             <PrivateRouter
                 authenticated={this.state.authenticated}
                 exact
@@ -122,6 +161,12 @@ class App extends Component {
                 exact
                 path="/app/user"
                 component={(history) => <User getAuthToken={()=>this.getAuthToken()} context={history}/>}/>
+            <Route
+                exact
+                path="/help"
+                component={(history) => <Help 
+                  context={history}/>} 
+                />
             <Route path="*" component={() => "404 NOT FOUND"} />
             </Switch>
           </BrowserRouter>

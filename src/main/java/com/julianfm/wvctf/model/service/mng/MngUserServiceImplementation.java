@@ -40,9 +40,9 @@ public class MngUserServiceImplementation implements MngUserService {
 	
 	long TOT_DI = 2;
 	long TOT_SO = 2;
-	long TOT_SF = 1;
+	long TOT_SF = 2;
 	long TOT_XSS = 2;
-	long TOT_L = 1;
+	long TOT_L = 2;
 	
 	@Override
 	public MngUserDTO createOrUpdateMngUser (MngUserDTO mngUser) {
@@ -52,16 +52,20 @@ public class MngUserServiceImplementation implements MngUserService {
 		ManageUser insertedUser = new ManageUser();
 		MngUserDTO insertedUserDTO = new MngUserDTO();
 		
-		if (mngUser!=null) {
-			user = userMapper.map(mngUser, ManageUser.class);
-			user.setPassword(passwordEncoder.encode(mngUser.getPassword()));
-			user.setFlag_di(false);
-			user.setFlag_l(false);
-			user.setFlag_sf(false);
-			user.setFlag_so(false);
-			user.setFlag_xss(false);
-			insertedUser = mngUserRepository.save(user);
-			insertedUserDTO = userMapper.map(insertedUser, MngUserDTO.class);
+		if(mngUserRepository.findByUsername(mngUser.getUsername())!=null) {
+			throw new RuntimeException("This user already exists");
+		} else {
+			if (mngUser!=null) {
+				user = userMapper.map(mngUser, ManageUser.class);
+				user.setPassword(passwordEncoder.encode(mngUser.getPassword()));
+				user.setFlag_di(false);
+				user.setFlag_l(false);
+				user.setFlag_sf(false);
+				user.setFlag_so(false);
+				user.setFlag_xss(false);
+				insertedUser = mngUserRepository.save(user);
+				insertedUserDTO = userMapper.map(insertedUser, MngUserDTO.class);
+			}
 		}
 		
 		return insertedUserDTO;
@@ -93,7 +97,7 @@ public class MngUserServiceImplementation implements MngUserService {
 			
 			String desc="";
 			for (Flags fg : Flags.values()) {
-		        if (fg.name().equals(f)) {
+		        if (fg.name().equals(f.getFlag())) {
 		             desc = fg.getDescription();
 		        }
 		    }
@@ -183,9 +187,10 @@ public class MngUserServiceImplementation implements MngUserService {
 		
 		ManageUser user = this.mngUserRepository.findByUsername(username);
 		
-		
-		UserPrincipal userPrincipal = new UserPrincipal(user);
-			
-		return userPrincipal;
+		if (user!=null) {
+			return new UserPrincipal(user);
+		}else {
+			throw new UsernameNotFoundException("User not exists");
+		}
 	}
 }

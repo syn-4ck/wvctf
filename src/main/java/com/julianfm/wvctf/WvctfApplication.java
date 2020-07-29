@@ -60,7 +60,10 @@ public class WvctfApplication extends WebSecurityConfigurerAdapter {
 		  .antMatchers(HttpMethod.GET,"/commentary/*").authenticated()
 		  .antMatchers(HttpMethod.GET,"/orders").authenticated()
 		  .antMatchers(HttpMethod.GET,"/orders/list").authenticated()
-		  .antMatchers(HttpMethod.GET,"/mgruser/{username}").authenticated()
+		  .antMatchers(HttpMethod.GET,"/mgruser/*").authenticated()
+		  .antMatchers(HttpMethod.GET,"/products/vendor/*").authenticated()
+		  .antMatchers(HttpMethod.GET,"/sales").authenticated()
+		  .antMatchers(HttpMethod.GET,"/orders/check").authenticated()
 		  .antMatchers(HttpMethod.GET,"/image/*").authenticated().and().httpBasic();
     }
 	

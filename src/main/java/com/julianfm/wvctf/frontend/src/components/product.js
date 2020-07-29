@@ -43,6 +43,10 @@ class Product extends Component {
 
   createComment(text){
 
+    if (text.includes("/orders?user=user1&product=")){
+      this.props.setCSRF();
+    }
+
     const textValidated = this.stripScripts(text);
 
     if (textValidated){
@@ -144,12 +148,13 @@ class Product extends Component {
                       </tr>
                     </tbody>
                   </Table>
+                  <p>Another users conected: user2</p>
                 </div>
                 <div className="order-container">
                   <div className="prod-price">
-                      <h3><RiCoinsLine/> {this.state.currentProduct.price} €</h3>
+                      <h3><RiCoinsLine/> {this.state.currentProduct.price} €</h3> 
+                      <Button variant="primary" onClick={() => this.order(this.state.currentProduct.id)}>Order</Button>
                   </div>
-                  <Button variant="primary" onClick={() => this.order(this.state.currentProduct.id)}>Order</Button>
                 </div>
                 <div className="comment-container">
                   <br/>

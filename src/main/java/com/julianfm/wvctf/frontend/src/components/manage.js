@@ -13,10 +13,9 @@ import m_lock from '../img/m-lock.png';
 
 class Manage extends Component {
 
-    FLAG_NUM = 7;
+    FLAG_NUM = 10;
 
     state={
-        createVisibleLogin:false,
         newFlag:false,
         username:'',
         flagDI:false,
@@ -49,42 +48,6 @@ class Manage extends Component {
                 .then(response => response.json())
                 .then(flags => this.setState({ flags }));
             }
-    }
-
-    handleOnClick(visible){
-        this.setState({createVisibleLogin:!visible});
-    }
-
-    login(username, password){
-        const cred = username+':'+password;
-        fetch(`/credentials?username=${username}&password=${password}`)
-        .then(response => response.json())
-        .then(data => {
-              if (!data.username){
-                alert("Username or password incorrect! Please, try again...");
-              } else {
-                this.props.handlerLogin(cred);
-                this.props.context.history.push("/");
-              }
-        });
-    }
-
-    register(username, password, email){
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': this.props.getAuthToken() },
-            body: JSON.stringify({ username, password, email })
-        };
-        fetch('/mgruser', requestOptions)
-            .then(response => {
-                if (response.ok){
-                    alert('User created. Please login in')
-                } else {
-                    alert('Ups, any problem ocurred, sorry')
-                }
-            });
-
-            this.setState({createVisibleLogin:!this.state.createVisibleLogin});
     }
 
     insertNewFlag(flag){
@@ -128,7 +91,24 @@ class Manage extends Component {
             <div className="manage-screen">
                 {/* <p></p> */}
                 {
-                    this.props && this.props.isAuth() && !this.state.newFlag &&
+                    this.state && this.state.username==='admin' &&
+                    <div>
+                        <p>flag_l_ca554e12680a79810d41ed0adfe0404ce7c68b0c99065c50472c262c85d853b8</p>
+
+                    <Button
+                        className="logout-button"
+                        variant="outline-danger"
+                        onClick={() => {
+                            this.props.handlerLogout();
+                            this.props.context.history.push("/login");
+                        }}
+                    >
+                            Logout
+                        </Button>
+                    </div>
+                }
+                {
+                    this.state && this.state.username!=='admin' && this.props && this.props.isAuth() && !this.state.newFlag &&
                     <div className="mgr-screen">
                         <div className="buttons-top-right-mgr">
                             <Button className="app-button-mgr" variant="primary" onClick={() => this.props.context.history.push("/app")}>Go to vulnerable app</Button>
@@ -212,7 +192,7 @@ class Manage extends Component {
                                 variant="outline-danger"
                                 onClick={() => {
                                     this.props.handlerLogout();
-                                    this.props.context.history.push("/");
+                                    this.props.context.history.push("/login");
                                 }}
                             >
                                 Logout
@@ -221,7 +201,7 @@ class Manage extends Component {
                     </div>
                 }
                 {
-                    this.props && this.props.isAuth() && this.state.newFlag &&
+                    this.state && this.state.username!=='admin' && this.props && this.props.isAuth() && this.state.newFlag &&
                     <div className="newflag-screen">
                         <form onSubmit={e => { e.preventDefault(); }}>
                             <div className='form-group'>
@@ -237,63 +217,6 @@ class Manage extends Component {
                         </form>
                     </div>
                 }
-                {
-                    this.props && !this.props.isAuth() && !this.state.createVisibleLogin &&
-                    <div className="login-screen">
-                        <h2>Login</h2>
-                    <form onSubmit={e => { e.preventDefault(); }}>
-                        <div className='form-group'>
-                            <label htmlFor="username">Username</label>
-                            <input type="text" className="form-control" name="username" ref={(r) => {this.username = r}} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" name="password" ref={(r) => {this.password = r}} />
-                        </div>
-                        <Button variant="primary" 
-                            onClick={() => this.login(this.username.value, this.password.value)}
-                        >
-                            Login
-                        </Button>
-                    </form>
-                    <div className="register">
-                            <p>If you are not already registered please click <a onClick={() => this.handleOnClick(this.state.createVisibleLogin)}>here</a> </p>
-                        </div>
-                        </div>
-                }
-                {
-                    this.props && !this.props.isAuth() && this.state.createVisibleLogin &&
-                    <Modal.Dialog className="modal-class">
-                        <Modal.Header>
-                            <Modal.Title>Register</Modal.Title>
-                        </Modal.Header>
-
-                        <Modal.Body>
-                            <Form>
-                                <Form.Group controlId="formBasicName" required>
-                                    <Form.Label>Username*</Form.Label>
-                                    <Form.Control type="text" required placeholder="Enter your username" ref={(r) => {this.formName = r}}/>
-                                </Form.Group>
-
-                                <Form.Group controlId="formBasicDesc">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Enter your password" ref={(r) => {this.formPass= r}}/>
-                                </Form.Group>
-
-                                <Form.Group controlId="formBasicSize">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" required placeholder="Enter your mail" ref={(r) => {this.formMAil = r}}/>
-                                </Form.Group>
-                            </Form>
-
-                        </Modal.Body>
-
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={() => this.handleOnClick(this.state.createVisibleLogin)}>Close</Button>
-                            <Button variant="primary" onClick={() => this.register(this.formName.value, this.formPass.value, this.formMAil.value)}>Submit</Button>
-                        </Modal.Footer>
-                    </Modal.Dialog>
-            }
             </div>
         )
     }

@@ -54,7 +54,7 @@ class Index extends Component {
 
     const requestOptionsImg = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': this.props.getAuthToken() },
+        headers: {'Authorization': this.props.getAuthToken() },
         body: formData
     };
     fetch(`/upload?name=${name}`, requestOptionsImg)
@@ -155,7 +155,7 @@ class Index extends Component {
                             </Button>
                         </FormGroup>
                     </Form>
-                    <div className="container">
+                      <div className="container">
                         <div className="row">
                             <div className="col-sm">
                                 <h3>Sale your products:</h3>
@@ -163,6 +163,8 @@ class Index extends Component {
                                 <p>Here you can sale your own products. Please, click on "New product" to publish the article and send the form.</p>
                                 <br/>
                                 <Button onClick={() => this.handleOnClick(this.state.createVisible)}>New product</Button>
+                                <br/>
+                                <Button onClick={() => this.props.context.history.push("/app/sales")} className="contact-button">Show your products</Button>
                                 <br/>
                                 <Button onClick={() => this.props.context.history.push("/app/user")} className="contact-button">My user</Button>
                             </div>
@@ -172,6 +174,8 @@ class Index extends Component {
                                 <p>Here you can see your ordered products. Please, click over your "Show orders" to see it.</p>
                                 <br/>
                                 <Button onClick={() => this.props.context.history.push("/app/orders?username=user1")}>Show orders</Button>
+                                <br/>
+                                <Button onClick={() => this.props.context.history.push("/app/mysales")} className="contact-button">Show sales</Button>
                                 <br/>
                                 <Button onClick={() => this.props.context.history.push("/app/contact")} className="contact-button">Get vendor contact</Button>
                             </div>

@@ -168,4 +168,28 @@ public class ProductServiceImplementation implements ProductService {
 		
 	}
 
+	@Override
+	public List<ProductDTO> findByVendor(String name) {
+		ModelMapper productMapper =  new ModelMapper();
+		
+		List<Product> products = new ArrayList<Product>();
+		
+		productRepository.findAll().forEach(p -> {
+			if(p.getVendor().getUsername().equals(name)) {
+				products.add(p);
+			}
+		});
+		List<ProductDTO> productsDTO = new ArrayList<ProductDTO>();
+		
+		products.forEach(p -> {
+			ProductDTO pDTO = new ProductDTO();
+			pDTO = productMapper.map(p, ProductDTO.class);
+			pDTO.setCategory(this.findById(p.getId()).getCategory());
+			pDTO.setVendor(this.findById(p.getId()).getVendor());
+			productsDTO.add(pDTO);
+		});
+		
+		return productsDTO;
+	}
+
 }

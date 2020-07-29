@@ -25,4 +25,6 @@ public interface ProductService {
 	
 	public boolean isCI (String name);
 
+	public List<ProductDTO> findByVendor(String name);
+
 }
