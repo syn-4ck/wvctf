@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 import com.julianfm.wvctf.model.entity.Category;
 import com.julianfm.wvctf.model.entity.Product;
 import com.julianfm.wvctf.model.entity.Users;
+import com.julianfm.wvctf.model.entity.mng.ManageUser;
 import com.julianfm.wvctf.model.entity.mongo.Contact;
 import com.julianfm.wvctf.model.repository.CategoryRepository;
 import com.julianfm.wvctf.model.repository.ProductRepository;
 import com.julianfm.wvctf.model.repository.UserRepository;
+import com.julianfm.wvctf.model.repository.mng.ManageUserRepository;
 import com.julianfm.wvctf.model.repository.mongo.ContactRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,16 +28,27 @@ public class InitUserAndProductData {
 	
 	private final ContactRepository contactRepository;
 	
+	private final ManageUserRepository mngUserRepository;
+	
 	@PostConstruct
 	void createData() {
 		
 		productRepository.deleteAll();
 		categoryRepository.deleteAll();
 		userRepository.deleteAll();
-		
+		contactRepository.deleteAll();
+
+		ManageUser admin = mngUserRepository.findByUsername("admin");
+		if (admin!=null) {
+			mngUserRepository.delete(admin);
+		}
+		mngUserRepository.save(new ManageUser("admin","$2y$10$WRSbhqEfh.KoS31hvDUYwORyyKJT1SVAaJdYqWMJEutSDdOwkFq26","admin@wvctf.com",false,false,false,false,false));
 		Users user1 = userRepository.save(new Users("user1","user1p","123456789","MyHouse, MyStreet MyNumber, MyCountry"));
 		Users user2 = userRepository.save(new Users("user2","user2p","987654321","MyHouse, MyStreet MyNumber, MyCountry"));
 		userRepository.save(new Users("flag_user","flag_di_9db3e2d42abc40b2ac3ae54b7d6e2c528fb22f288402e5d671e6cf8c194413fc","00112233","MyHouse, MyStreet MyNumber, MyCountry"));
+		
+		contactRepository.save(new Contact(null,"user1","123456789","user1@wvctf.com"));
+		contactRepository.save(new Contact(null,"user2","987654321","user2@wvctf.com"));
 		contactRepository.save(new Contact(null,"","flag_di_a6c5023f020fac7b8bb87ae1aad338ea80567057afe1dbf520a294f5cd931334","noreply@wvctf.com"));
 		
 		Category trousers = categoryRepository.save(new Category("Trousers"));

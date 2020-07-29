@@ -34,7 +34,7 @@ public interface ContactRepository extends MongoRepository<Contact,String> {
 		MongoClient mongoClient = new MongoClient(address,credentials);
         
 		DB database = mongoClient.getDB("WVCTF");
-		DBCollection collection = database.getCollection("Contact");
+		DBCollection collection = database.getCollection("contact");
 		
 		String parsedName = name;
 		if (!name.startsWith("{")) {
@@ -45,6 +45,8 @@ public interface ContactRepository extends MongoRepository<Contact,String> {
 		DBObject query = (DBObject) JSON.parse(searchQuery);
 		DBCursor cursor = collection.find(query);
 		
+		System.out.println("---------------------> Lanzada consulta: "+query.toString());
+		
 		while (cursor.hasNext()) {
 		    DBObject theObj = cursor.next();
 		    
@@ -54,6 +56,8 @@ public interface ContactRepository extends MongoRepository<Contact,String> {
 		    contact.setName((String)theObj.get("name"));
 		    contact.setPhoneNumber((String)theObj.get("phoneNumber"));
 		    contact.setMail((String)theObj.get("mail"));
+		    
+		    System.out.println("-----------> ENCONTRADO USUARIO "+contact.getName());
 		    
 		    contacts.add(contact);
 		    

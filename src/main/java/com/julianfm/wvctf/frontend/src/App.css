@@ -6,6 +6,16 @@
   background-color: #e6f9ff;
 }
 
+.logo{
+  margin-top: 4px;
+  margin-bottom: 4px;
+  max-width: 15%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 .footer {
   height: 80px;
   width: 100%;
@@ -163,7 +173,6 @@
 }
 
 .login-screen{
-  padding-top: 6rem;
   margin: auto;
   width: 50%;
   text-align: center;
