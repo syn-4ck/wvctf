@@ -1,0 +1,4 @@
+[[rules]]
+	description = "Generic Credential"
+	regex = '''(api_key|apikey|secret|password|pass|pw|key)'''
+	tags = ["generic"]
