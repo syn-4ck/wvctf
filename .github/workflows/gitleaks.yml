@@ -1,8 +1,13 @@
-workflow "gitleaks my commits" {
-  on = "push"
-  resolves = ["gitleaks"]
-}
+name: gitleaks
 
-action "gitleaks" {
-  uses = "eshork/gitleaks-action@master"
-}
+on: [push,pull_request]
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - name: gitleaks-action
+      uses: zricethezav/gitleaks-action@master
