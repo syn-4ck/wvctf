@@ -1,4 +1,4 @@
-name: Build
+name: SonarCloud SAST Scan
 on: [push,pull_request]
 jobs:
   build:
