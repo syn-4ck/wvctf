@@ -1,4 +1,4 @@
-name: gitleaks
+name: Gitleaks secrets scan
 
 on: [push,pull_request]
 
