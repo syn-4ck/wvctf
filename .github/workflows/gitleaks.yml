@@ -1,12 +1,8 @@
-name: gitleaks
+workflow "gitleaks my commits" {
+  on = "push"
+  resolves = ["gitleaks"]
+}
 
-on: [push,pull_request]
-
-jobs:
-  gitleaks:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: gitleaks-action
-      uses: zricethezav/gitleaks-action@master
-    script: gitleaks -v --pretty --repo-path . --commit-from=$CI_COMMIT_SHA --commit-to=$CI_COMMIT_BEFORE_SHA --branch=$CI_COMMIT_BRANCH
+action "gitleaks" {
+  uses = "eshork/gitleaks-action@master"
+}
