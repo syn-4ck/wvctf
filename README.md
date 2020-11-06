@@ -2,6 +2,8 @@
 
 WVCTF or WebVulnCTF is a gamified web platform which promotes training in pentesting and web application development security in an entertaining way. Through a rewards system, the user must search for a set of flags in the vulnerable application, that correspond to frequent vulnerabilities in web applications.  
 
+For more information visit the official webpage: https://repojfm.github.io/wvctf/
+
 ## Build and deploy
 
 Requirements:
