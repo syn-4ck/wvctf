@@ -11,7 +11,10 @@ Security stable version.
 
 ## Reporting a Vulnerability
 
-If you detect some vulnerability, please create a Pull Request to fix it or create a issue with "security-vulnerability" tag.
+If you detect some vulnerability, please do the following steps:
+
+1. Fill the Security Advisories [here](https://github.com/repoJFM/wvctf/security/advisories)
+2. Create a Pull Request to fix it or create a issue with "security-vulnerability" tag.
 
 In the issue you should specify:
 
