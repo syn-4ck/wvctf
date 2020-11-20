@@ -1,3 +1,7 @@
+![Gitleaks secrets scan](https://github.com/repoJFM/wvctf/workflows/Gitleaks%20secrets%20scan/badge.svg)
+![CodeQL](https://github.com/repoJFM/wvctf/workflows/CodeQL/badge.svg)
+![SonarCloud SAST Scan](https://github.com/repoJFM/wvctf/workflows/SonarCloud%20SAST%20Scan/badge.svg)
+![Java CI with Maven](https://github.com/repoJFM/wvctf/workflows/Java%20CI%20with%20Maven/badge.svg)
 # WebVulnCTF
 
 WVCTF or WebVulnCTF is a gamified web platform which promotes training in pentesting and web application development security in an entertaining way. Through a rewards system, the user must search for a set of flags in the vulnerable application, that correspond to frequent vulnerabilities in web applications.  
