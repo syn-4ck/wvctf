@@ -44,7 +44,7 @@ For help, you have the script run_script.bat (only for CMD of Windows).
 ![SonarCloud SAST Scan](https://github.com/repoJFM/wvctf/workflows/SonarCloud%20SAST%20Scan/badge.svg)
 ![Snyk SCA Check](https://github.com/repoJFM/wvctf/workflows/Snyk%20SCA%20Check/badge.svg)
 
-### Secrets detector
+### Secrets detector (Gitleaks)
 ![Gitleaks secrets scan](https://github.com/repoJFM/wvctf/workflows/Gitleaks%20secrets%20scan/badge.svg)
 
 ### Compile testing
