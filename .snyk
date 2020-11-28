@@ -1,0 +1,13 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  '''SNYK-JAVA-ORGYAML-537645''':
+    - '*':
+        reason: 'Incompatibility with Mongo Driver'
+        expires: 2099-12-31T23:00:00.000Z
+  '''SNYK-JAVA-ORGAPACHEHTTPCOMPONENTS-1016906''':
+    - '*':
+        reason: 'NO PATCH'
+        expires: 2099-12-31T23:00:00.000Z
+patch: {}
