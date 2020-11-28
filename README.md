@@ -35,3 +35,17 @@ To run:
 		npm start
 
 For help, you have the script run_script.bat (only for CMD of Windows).
+
+
+## Checkers
+
+### Security Code Testing (SAST & SCA)
+![CodeQL](https://github.com/repoJFM/wvctf/workflows/CodeQL/badge.svg)
+![SonarCloud SAST Scan](https://github.com/repoJFM/wvctf/workflows/SonarCloud%20SAST%20Scan/badge.svg)
+![Snyk SCA Check](https://github.com/repoJFM/wvctf/workflows/Snyk%20SCA%20Check/badge.svg)
+
+### Secrets detector (Gitleaks)
+![Gitleaks secrets scan](https://github.com/repoJFM/wvctf/workflows/Gitleaks%20secrets%20scan/badge.svg)
+
+### Compile testing
+![Java CI with Maven](https://github.com/repoJFM/wvctf/workflows/Java%20CI%20with%20Maven/badge.svg)

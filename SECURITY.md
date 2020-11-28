@@ -6,8 +6,9 @@ Security stable version.
 
 | Version         | Supported          |
 | ----------------| ------------------ |
-| 2.x (latest)    | :white_check_mark: |
-| 1.x             | :x:                |
+| 2.0.1 (latest)  | :white_check_mark: |
+| 2.0             | :x:                |
+| 1.1             | :x:                |
 
 ## Reporting a Vulnerability
 
