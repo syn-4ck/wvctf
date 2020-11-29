@@ -24,6 +24,5 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd src/main/java/com/julianfm/wvctf/frontend
-    - run: npm install
-    - run: npm test
+    - run: npm install --prefix "src/main/java/com/julianfm/wvctf/frontend"
+    - run: npm test --prefix "src/main/java/com/julianfm/wvctf/frontend"
