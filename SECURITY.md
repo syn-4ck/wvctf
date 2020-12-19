@@ -19,7 +19,7 @@ If you detect some vulnerability, please do the following steps:
 
 In the issue you should specify:
 
-* CVE code
+* CVE id
 * A description
 * An evidence in the code
 
