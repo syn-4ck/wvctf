@@ -49,3 +49,4 @@ For help, you have the script run_script.bat (only for CMD of Windows).
 
 ### Compile testing
 ![Java CI with Maven](https://github.com/repoJFM/wvctf/workflows/Java%20CI%20with%20Maven/badge.svg)
+![Node.js CI](https://github.com/repoJFM/wvctf/workflows/Node.js%20CI/badge.svg)
