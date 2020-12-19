@@ -2,40 +2,48 @@
 version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  '''SNYK-JAVA-ORGYAML-537645''':
+  SNYK-JAVA-ORGYAML-537645:
     - '*':
         reason: Incompatibility with Mongo Driver
         expires: 2099-12-31T23:00:00.000Z
-  '''SNYK-JAVA-ORGAPACHEHTTPCOMPONENTS-1016906''':
+  SNYK-JAVA-ORGAPACHEHTTPCOMPONENTS-1016906:
     - '*':
         reason: NO PATCH
         expires: 2099-12-31T23:00:00.000Z
-  '''SNYK-JAVA-ORGAPACHETOMCATEMBED-1017119''':
+  SNYK-JAVA-ORGAPACHETOMCATEMBED-1017119:
     - '*':
         reason: NO PATCH
         expires: 2099-12-31T23:00:00.000Z
-  '''SNYK-JAVA-ORGAPACHETOMCATEMBED-570072''':
+  SNYK-JAVA-ORGAPACHETOMCATEMBED-584427:
     - '*':
         reason: NO PATCH
         expires: 2099-12-31T23:00:00.000Z
-  '''SNYK-JAVA-ORGAPACHETOMCATEMBED-584427''':
+  SNYK-JAVA-ORGHIBERNATE-1041788:
     - '*':
         reason: NO PATCH
         expires: 2099-12-31T23:00:00.000Z
-  '''SNYK-JAVA-ORGHIBERNATE-1041788''':
+  SNYK-JAVA-ORGHIBERNATE-584563:
     - '*':
         reason: NO PATCH
         expires: 2099-12-31T23:00:00.000Z
-  '''SNYK-JAVA-ORGHIBERNATE-584563''':
+  SNYK-JAVA-ORGHIBERNATEVALIDATOR-568163:
     - '*':
         reason: NO PATCH
         expires: 2099-12-31T23:00:00.000Z
-  '''SNYK-JAVA-ORGHIBERNATEVALIDATOR-568163''':
+  SNYK-JAVA-ORGSPRINGFRAMEWORK-1009832:
     - '*':
         reason: NO PATCH
         expires: 2099-12-31T23:00:00.000Z
-  '''SNYK-JAVA-ORGSPRINGFRAMEWORK-1009832''':
+  SNYK-JAVA-COMFASTERXMLJACKSONCORE-1048302:
     - '*':
-        reason: NO PATCH
-        expires: 2099-12-31T23:00:00.000Z
+        reason: None Given
+        expires: 2021-01-18T21:05:49.108Z
+  SNYK-JAVA-ORGAPACHEHTTPCOMPONENTS-1048058:
+    - '*':
+        reason: None Given
+        expires: 2021-01-18T21:06:53.224Z
+  SNYK-JAVA-ORGAPACHETOMCATEMBED-570072:
+    - '*':
+        reason: None Given
+        expires: 2021-01-18T21:07:14.676Z
 patch: {}
