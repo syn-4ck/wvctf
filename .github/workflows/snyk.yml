@@ -14,4 +14,4 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: -d --all-projects --detection-depth=20 --policy-path=.snyk --severity-threshold=medium --fail-on=upgradable
+        args: -d --all-projects --detection-depth=20 --policy-path=.snyk --ignore-policy --trust-policies --severity-threshold=high --fail-on=upgradable
