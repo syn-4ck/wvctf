@@ -1,0 +1,33 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'SNYK-JS-CACHEBASE-1054631':
+    - '*':
+        reason: NO PATCH
+        expires: 2025-01-01T21:07:14.676Z
+  'SNYK-JS-INI-1048974':
+    - '*':
+        reason: NO PATCH
+        expires: 2025-01-01T21:07:14.676Z
+  'SNYK-JS-LODASH-590103':
+    - '*':
+        reason: NO PATCH
+        expires: 2025-01-01T21:07:14.676Z
+  'SNYK-JS-LODASH-608086':
+    - '*':
+        reason: NO PATCH
+        expires: 2025-01-01T21:07:14.676Z
+  'SNYK-JS-Y18N-1021887':
+    - '*':
+        reason: NO PATCH
+        expires: 2025-01-01T21:07:14.676Z
+  'SNYK-JS-LODASH-567746':
+    - '*':
+        reason: NO PATCH
+        expires: 2025-01-01T21:07:14.676Z
+  'SNYK-JS-NODENOTIFIER-1035794':
+    - '*':
+        reason: NO PATCH
+        expires: 2025-01-01T21:07:14.676Z
+patch: {}
