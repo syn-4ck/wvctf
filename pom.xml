@@ -18,8 +18,8 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<sonar.projectKey>repoJFM_wvctf</sonar.projectKey>
-		<sonar.organization>repojfm</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.organization>syn-4ck</sonar.organization>
+  		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencies>
